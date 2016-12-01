@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <link rel="stylesheet" type="text/css" href="SICMutils.css">
+    <title>SICM 2 - SICMutils Numbers</title>
+  </head>
+  <body>
+    <h1 class="Heading_Big">SICMutils Numbers</h1>
+    <p> Since <span class="TechEmphasis">Scheme</span> and <span class="TechEmphasis">Clojure</span>
+      implement their numeric systems differently and a number of these
+      differences become apparent when comparing <em>scmutils</em> to the <em>SICMutils</em>
+      system.&nbsp; It is, however, not too difficult to get the two systems to
+      behave in a satisfactorily similar manner.</p>
+    <p>The <em>Clojure</em> number system is based on the underlying Java
+      implementation.&nbsp; As such it provides machine based representations of
+      numbers viz. Integers (Long), and floating point decimals (Double).&nbsp;
+      These have been augmented in <em>SICMmutils</em> by Big Integers
+      (unlimited size), fractions and complex numbers.</p>
+    <p>Applying the Clojure procedure <span class="InlineCode">type</span> to
+      various numbers gives the following results:</p>
+    <p class="IndentedCode">(type -3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ==&gt;
+      java.lang.Long</p>
+    <p class="IndentedCode">(type 3.0)&nbsp;&nbsp;&nbsp;&nbsp; ==&gt;
+      java.lang.Double</p>
+    <p class="IndentedCode">(type 2/3)&nbsp;&nbsp;&nbsp;&nbsp; ==&gt;
+      clojure.lang.Ratio</p>
+    <p class="IndentedCode">(type 30000000000000000000) &nbsp; ==&gt;
+      clojure.lang.BigInt</p>
+    <p class="IndentedCode">(type (complex 1 1))&nbsp; &nbsp;&nbsp; &nbsp;
+      &nbsp; &nbsp;==&gt; org.apache.commons.math3.complex.Complex</p>
+    <p>The above (with the exception of complex numbers) will return <span class="InlineCode">true</span>
+      when given as the argument to the function</p>
+    <p class="IndentedCode">(number? x)</p>
+    <p>Complex numbers are a recent addition to the system and are based on the
+      Apache Commons Math library.&nbsp; In are some&nbsp; respects they have
+      not yet been integrated into SICMutils, so for now, <span class="InlineCode">number?</span>
+      must mean Real number.<br>
+    </p>
+    <p>Note that the infinite precision BigInt type is indicated in&nbsp;
+      indicated in <em>SICMutils</em> by a suffix "N".&nbsp; Exact arithmetic,
+      performed with fractions, uses this type, so a number does not need to be
+      large in order to be a BigInt:</p>
+    <p class="IndentedCode">(* 2/3 12/4)&nbsp; ==&gt;&nbsp; 2N</p>
+    <p>The system also provides a function <span class="InlineCode">exact?</span>
+      which will return <span class="InlineCode">true</span> only if the number
+      is exact, i.e. integer or ratio but not floating point approximation.<br>
+    </p>
+    <p>Other numerical functions are much as one would expect, here is a brief
+      list:</p>
+    <p class="IndentedCode">(zero? n) &nbsp;&nbsp;&nbsp; true if the value of n
+      = 0<br>
+      (negate n) &nbsp;&nbsp; multiply n by -1<br>
+      (abs n)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; the magnitude of n<br>
+      (invert n) &nbsp;&nbsp; 1 divided by n<br>
+      (square n) &nbsp;&nbsp; multiply n by itself<br>
+      (cube n) &nbsp;&nbsp;&nbsp;&nbsp; the square times the number<br>
+      (expt n m)&nbsp;&nbsp;&nbsp; n raised to the power of m<br>
+      (sqrt n)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; the square root of n</p>
+    <p>For Integers</p>
+    <p class="IndentedCode">(gcd n m)&nbsp;&nbsp;&nbsp;&nbsp; the greatest
+      common divisor of n and m </p>
+    <p>and the usual trigonometric and loarithimic functions</p>
+    <p class="IndentedCode">(exp x)&nbsp; e^x<br>
+      (log x)&nbsp; natural log of x<br>
+      (sin x)&nbsp; and&nbsp; (asin x)<br>
+      (cos x)&nbsp; and&nbsp; (asin x)<br>
+      (tan x)&nbsp; and&nbsp; (atan x)</p>
+    <p>Further, complex numbers support the functions</p>
+    <p class="IndentedCode">(real-part c)&nbsp; the real part<br>
+      (imag-part c)&nbsp; the imaginary part<br>
+      (magnitude c)&nbsp; the absolute value (by Pythagoras)<br>
+      (abs c)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; same as above<br>
+      (angle c)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; the Argument of a complex number<br>
+      (conjugate c)&nbsp; the number with imag-part negated</p>
+    <p class="IndentedCode"><br>
+    </p>
+    <p class="IndentedCode"><br>
+    </p>
+    <p class="IndentedCode"><br>
+    </p>
+    <p><br>
+    </p>
+    <p><br>
+    </p>
+  </body>
+</html>

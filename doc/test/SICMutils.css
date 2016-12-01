@@ -1,0 +1,59 @@
+/* SICMutils Reference Manual CSS */
+
+body {
+   color: black;
+/*   background-color: #e5e5e5; */
+/*   background-color: beige;*/
+   background-color: white;
+   max-width: 18cm;
+   margin-top: 1cm; margin-bottom: 1.5cm; margin-left: 1.5cm; margin-right: 1.5cm;
+}
+
+p { 
+    margin-bottom: 0.3cm; 
+    font-size:12pt; font-family:Liberation Serif;
+    text-align: justify }
+
+li {
+    font-family:Arial; font-size:10pt; 
+    list-style-type:disc; 
+    margin-left: 0.5cm; padding:0;}
+
+.Heading_Big { 
+    font-size:150%; 
+    margin-bottom:0.5cm; margin-top:0.2cm; 
+    font-family:Liberation Sans ; 
+    font-style:italic; font-weight:bold; 
+    text-align:center; }
+
+.Standard { /* moved to standard <p> */
+    margin-bottom: 0.3cm; 
+    font-size:12pt; font-family:Liberation Serif;
+    text-align: justify }
+
+.IndentedBanner {
+    margin-top:2mm; margin-bottom:2mm; margin-left: 1.2cm ;
+    font-size:10pt; font-family:DejaVu Sans Mono; }
+
+.IndentedCode {
+    color: #000018;
+    margin-top:2mm; margin-bottom:2mm; margin-left: 0.8cm ;
+    font-size:10pt; font-family:DejaVu Sans Mono; }
+
+.TechEmphasis {
+    color: #000010;
+    font-size:98%;
+    font-style:italic;
+    font-weight: bold;}
+
+.InlineCode {
+	color: #000018;
+	font-size:90%; font-family: DejaVu Sans Mono; 
+}
+
+.StandardSans {  /* because bold needs to go down a bit to look decent*/
+    font-size:80%; font-family: sans-serif;}
+
+.SlightlySmaller {  /* Footnotes and the like */
+    font-size:90%}
+

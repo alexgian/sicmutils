@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <title>SICM I - Clojure and FP</title>
+    <link rel="stylesheet" type="text/css" href="SICMutils.css">
+    <style type="text/css">
+	@page {  }
+	table { border-collapse:collapse; border-spacing:0; empty-cells:show }
+	td, th { vertical-align:top; font-size:12pt;}
+	h1, h2, h3, h4, h5, h6 { clear:both }
+	ol, ul { margin:0; padding:0;}
+	<!-- "li span.odfLiEnd" - IE 7 issue-->
+	li span. { clear: both; line-height:0; width:0; height:0; margin:0; padding:0; }
+	span.footnodeNumber { padding-right:1em; }
+	span.annotation_style_by_filter { font-size:95%; font-family:Arial; background-color:#fff000;  margin:0; border:0; padding:0;  }
+	* { margin:0;}
+	.Heading_Big { font-size:150%; margin-bottom:0.5cm; margin-top:0.2cm; font-family:Liberation Sans; 
+    writing-mode:page; font-style:italic; font-weight:bold; text-align:center; }
+	.P15 { font-size:14pt; font-style:italic; font-weight:bold; margin-bottom:0.212cm; margin-top:0.423cm; font-family:Liberation Sans; writing-mode:page; }
+	.Heading_20_5 { font-size:85%; margin-bottom:0.212cm; margin-top:0.423cm; font-family:Liberation Sans; writing-mode:page; font-weight:bold; }
+	.P1 { font-size:10pt; margin-bottom:0cm; margin-top:0cm; font-family:DejaVu Sans Mono; writing-mode:page; }
+	.P10 { font-size:10pt; margin-bottom:0cm; margin-top:0cm; font-family:DejaVu Sans Mono; writing-mode:page; text-align:justify ! important; }
+	.P12 { font-size:10pt; margin-bottom:0cm; margin-top:0cm; font-family:DejaVu Sans Mono; writing-mode:page; }
+	.P14 { font-size:12pt; font-family:Liberation Serif; writing-mode:page; text-align:justify ! important; }
+	.P16 { font-size:85%; font-weight:bold; margin-bottom:0.212cm; margin-top:0.423cm; font-family:Liberation Sans; writing-mode:page; }
+	.P2 { font-size:12pt; font-family:Liberation Serif; writing-mode:page; text-align:justify ! important; }
+	.P3 { font-size:12pt; font-family:Liberation Serif; writing-mode:page; text-align:justify ! important; }
+	.P9 { font-size:12pt; font-family:Liberation Serif; writing-mode:page; color:#ff3333; }
+	.T1 { font-style:italic; text-decoration:underline; }
+	.T10 { text-decoration:underline; }
+	.T11 { font-size:10.5pt; font-weight:bold; }
+	.T2 { font-style:italic; text-decoration:underline; }
+	.T20 { font-style:normal; font-weight:normal; }
+	.T3 { font-style:italic; }
+	.T6 { font-style:italic; font-weight:bold; }
+	<!-- ODF styles with no properties representable as CSS -->
+	.Endnote_20_Symbol .Footnote_20_Symbol .T12 .T13 .T14 .T15 .T16 .T17 .T18 .T19  { }
+	</style>
+  </head>
+  <body>
+    <h1 class="Heading_Big">Clojure and Functional Programming</h1>
+    <p><span class="TechEmphasis">Clojure</span> is a computer language in the <span
+        class="TechEmphasis">Lisp</span> family of languages, strongly
+      influenced by ideas from the language <span class="TechEmphasis">Scheme</span>,
+      and designed to run on Virtual Machines, so that it is independent of
+      underlying hardware. &nbsp;<span class="T15">The commonest VM environment
+        on which <span class="TechEmphasis">Clojure</span> runs is Java.&nbsp;
+      </span>We will make no attempt to document <span class="TechEmphasis"><span
+          class="T15">Clojure</span></span> here, <span class="T15">that is a
+        mammoth task already undertaken by others, although some useful
+        references for beginners are listed at the bottom of this page.</span></p>
+    <p>We assume that a reader of this document is familiar with <span class="TechEmphasis">Scheme</span>-like
+      dialects and is at least somewhat conversant with ideas like those in</p>
+    <p class="IndentedBanner"> Harold Abelson, Gerald Jay Sussman and Julie
+      Sussman<br>
+      <b>Structure and Interpretation of Computer Programs</b><br>
+      MIT Press and McGraw-Hill (1985, 1996) </p>
+    <p>Alternatively a fair grounding in the essentials of functional
+      programming, either through a language like <span class="TechEmphasis">Clojure</span>,
+      or other functional languages like <span class="TechEmphasis">Haskell</span>
+      or <span class="TechEmphasis">ML</span> will probably be sufficient.</p>
+    <p> As a reminder, <span class="TechEmphasis">Clojure</span> is an
+      expression-oriented language.&nbsp; Expressions have values.&nbsp; The
+      value of an expression is constructed from the values of the constituent
+      parts of the expression and the way the expression is constructed.&nbsp;
+      Thus, the value of</p>
+    <p class="IndentedCode"> (+ (* pi (square r)) 1)</p>
+    <p> is constructed from the values of the symbols</p>
+    <p class="IndentedCode">+, *, pi, square, r, 1</p>
+    <p> and by the parenthetical organization.</p>
+    <p> In any <span class="TechEmphasis">Lisp</span>-based language, an
+      expression is constructed from parts with parentheses.&nbsp; <span class="TechEmphasis">Clojure</span>
+      enriches the options by introducing other delimiters too, e.g. [] for
+      vectors, for function arguments and for let statements.&nbsp; This often
+      simplifies the reading of the code, but the general idea continues to
+      apply all the same.&nbsp; <span class="SlightlySmaller">(See the caveat
+        below.)</span></p>
+    <p> The first subexpression always denotes a procedure and the rest of the
+      subexpressions denote arguments.&nbsp; So in the case of the expression
+      above, "square" is a symbol whose value is a procedure that is applied to
+      a thing (probably a number) denoted by "r".&nbsp; That value of the
+      application of square to r is then combined with the number denoted by
+      "pi" using the procedure denoted by "*" to make an object (again probably
+      a number) that is combined with the number denoted by "1" using the
+      procedure denoted by "+".&nbsp; Indeed, if the symbols have the values we
+      expect from their (hopefully mnemonic) names,</p>
+    <table style="width: 100%; margin-bottom: 0.5cm ; margin-left: 1cm;" border="0">
+      <tbody>
+        <tr>
+          <td class="IndentedCode" style="width:10%;">&nbsp;+<br>
+            &nbsp;*<br>
+            &nbsp;pi<br>
+            &nbsp;square<br>
+            &nbsp;1<br>
+            &nbsp;r</td>
+          <td class="IndentedCode">&nbsp; =&nbsp; a means of addition<br>
+            &nbsp; =&nbsp; a means of multiplication<br>
+            &nbsp; =&nbsp; a number approximately equal to 3.14159265358979<br>
+            &nbsp; =&nbsp; a means of squaring<br>
+            &nbsp; =&nbsp; the multiplicative identity in the reals<br>
+            &nbsp; =&nbsp; some given number, say for example 4</td>
+        </tr>
+      </tbody>
+    </table>
+    <p> then the expression given above <span class="InlineCode">(+ (* pi
+        (square r)) 1)</span> would have the approximate value denoted by the
+      numeral <span class="InlineCode">51.26548245743669</span>. </p>
+    <p> We can write expressions denoting procedures.&nbsp; For example the
+      procedure for squaring can be written<br>
+    </p>
+    <p class="IndentedCode"> (fn [x] (* x x)) </p>
+    <p> which may be read </p>
+    <p class="IndentedCode">"the procedure of one argument x that multiplies x
+      by x"</p>
+    <p> We may bind a symbol to a value by definition </p>
+    <p class="IndentedCode">(def square (fn [x] (* x x)))</p>
+    <p> or equivalently, by </p>
+    <p class="IndentedCode"> (defn square [x] (* x x))</p>
+    <p> The application of a defined procedure to operands will bind the symbols
+      that are the formal parameters to the actual arguments that are the values
+      of the operands: </p>
+    <p class="IndentedCode">(+ (square 3) (square 4)) ==&gt; 25</p>
+    <p style="font-size: 2pt"><br>
+    </p>
+    <p><span class="StandardSans"><font color="#ee2020"><b>One caveat:</b></font></span>
+      From the above, it is apparent that previous users of <span class="TechEmphasis">
+        scmutils</span>, or <span class="TechEmphasis"> Scheme</span> in
+      general, will be able to execute code from <span class="TechEmphasis">
+        SICM</span> without needing to alter anything, as the syntax is the
+      same.&nbsp; This, however, does not apply when needing to define
+      functions, as the syntax here is different.&nbsp; The difference is very
+      small however, and should be easily grasped.</p>
+    <p>Further, the syntactic sugar available to some <span class="TechEmphasis">
+        Scheme</span>s, which allows the following to be written</p>
+    <p class="IndentedCode">(define (((somefunc x y) z) w) (+ x y z w)</p>
+    <p>is not accommodated in <span class="TechEmphasis"> Clojure</span>, and
+      the expression has to be entered in full, as it would be in Scheme:</p>
+    <table style="width: 100% ; margin-bottom: 0.5cm ; margin-left: 1cm" border="0">
+      <tbody>
+        <tr class="TechEmphasis">
+          <td><span class="SlightlySmaller"><u>Clojure</u></span></td>
+          <td><span class="SlightlySmaller"><u>Scheme</u></span></td>
+        </tr>
+        <tr>
+          <td class="IndentedCode"> (defn somefunc [x y]<br>
+            &nbsp;&nbsp; (fn [z]<br>
+            &nbsp;&nbsp;&nbsp;&nbsp; (fn [w]<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (+ x y z w))))<br>
+          </td>
+          <td class="IndentedCode">(define (somefunc x y)<br>
+            &nbsp; (lambda (z)<br>
+            &nbsp;&nbsp;&nbsp; (lambda (w)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (+ x y z w))))</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Of course, in both cases this is evaluated as</p>
+    <p class="IndentedCode">(((somefunc 1 2) 3) 4)&nbsp; ==&gt; 10</p>
+    <p style="font-size: 2pt"><br>
+    </p>
+    <p>This covers the absolute minimum of the elements of <span class="TechEmphasis">
+        Clojure</span>.&nbsp; You need consult alternate sources for more
+      information.&nbsp;&nbsp; Some possibilities are:</p>
+    <ul>
+      <li>Some basics explained from the main <em>Clojure</em> site
+        itself:&nbsp; <a title="Clojure Basics" href="http://clojure.org/reference/reader">The
+          Reader</a></li>
+      <li>A <a title="Quick Reference" href="https://clojuredocs.org/quickref">Quick
+          Reference</a> page from the <em>Clojure</em> documentation site.</li>
+      <li>Basic training exercises to bring you up to speed with functional
+        programming <a title="4Clojure excercises" href="https://www.4clojure.com/">4Clojure</a></li>
+      <li>Entry-level book for people who may perhaps want to develop&nbsp; <em>SICMutils</em>
+        apps: <a title="Online book" href="http://www.braveclojure.com/">Clojure
+          for the Brave and True</a></li>
+      <li> Definitive textbook, essential for those interested in the <em>SICMutils</em>
+        implementation itself: <a title="O'Reilly book" href="http://www.clojurebook.com/">Clojure
+          Programming</a><br>
+      </li>
+    </ul>
+    <p> <br>
+    </p>
+    
+  </body>
+</html>

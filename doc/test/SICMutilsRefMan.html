@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <title>SICMutils Reference Manual</title>
+    <link rel="stylesheet" type="text/css" href="SICMutils.css">
+    <style type="text/css">
+	@page {  }
+	table { border-collapse:collapse; border-spacing:0; empty-cells:show }
+	td, th { vertical-align:top; font-size:12pt;}
+	h1, h2, h3, h4, h5, h6 { clear:both }
+	ol, ul { margin:0; padding:0;}
+	li { font-family:Arial; font-size:10pt; list-style-type:disc; margin:0; padding:0;}
+	<!-- "li span.odfLiEnd" - IE 7 issue-->
+	li span. { clear: both; line-height:0; width:0; height:0; margin:0; padding:0; }
+	span.footnodeNumber { padding-right:1em; }
+	span.annotation_style_by_filter { font-size:95%; font-family:Arial; background-color:#fff000;  margin:0; border:0; padding:0;  }
+	* { margin:0;}
+	.P15 { font-size:14pt; font-style:italic; font-weight:bold; margin-bottom:0.212cm; margin-top:0.423cm; font-family:Liberation Sans; writing-mode:page; }
+	.Heading_20_5 { font-size:85%; margin-bottom:0.212cm; margin-top:0.423cm; font-family:Liberation Sans; writing-mode:page; font-weight:bold; }
+	.P1 { font-size:10pt; margin-bottom:0cm; margin-top:0cm; font-family:DejaVu Sans Mono; writing-mode:page; }
+	.P10 { font-size:10pt; margin-bottom:0cm; margin-top:0cm; font-family:DejaVu Sans Mono; writing-mode:page; text-align:justify ! important; }
+	.P12 { font-size:10pt; margin-bottom:0cm; margin-top:0cm; font-family:DejaVu Sans Mono; writing-mode:page; }
+	.P14 { font-size:12pt; font-family:Liberation Serif; writing-mode:page; text-align:justify ! important; }
+	.P16 { font-size:85%; font-weight:bold; margin-bottom:0.212cm; margin-top:0.423cm; font-family:Liberation Sans; writing-mode:page; }
+	.P2 { font-size:12pt; font-family:Liberation Serif; writing-mode:page; text-align:justify ! important; }
+	.P3 { font-size:12pt; font-family:Liberation Serif; writing-mode:page; text-align:justify ! important; }
+	.P9 { font-size:12pt; font-family:Liberation Serif; writing-mode:page; color:#ff3333; }
+  .Preformatted_20_Text { font-size:10pt; font-family:DejaVu Sans Mono; writing-mode:page; margin-top:2mm; margin-bottom:2mm; margin-left: 2cm }
+	.T1 { font-style:italic; text-decoration:underline; }
+	.T10 { text-decoration:underline; }
+	.T11 { font-size:10.5pt; font-weight:bold; }
+	.T2 { font-style:italic; text-decoration:underline; }
+	.T20 { font-style:normal; font-weight:normal; }
+	.T3 { font-style:italic; }
+	.T6 { font-style:italic; font-weight:bold; }
+	<!-- ODF styles with no properties representable as CSS -->
+	.Endnote_20_Symbol .Footnote_20_Symbol .T12 .T13 .T14 .T15 .T16 .T17 .T18 .T19  { }
+	</style>
+  </head>
+  <body>
+    <h1 class="Heading_Big"><i><u>SICMUTILS Reference Manual</u></i></h1>
+    <p>This is a description of the <span class="TechEmphasis">SICMutils</span>
+      computer algebra system, a port to <span class="TechEmphasis">Clojure</span>
+      of <span class="TechEmphasis">scmutils</span>, the <span class="TechEmphasis">MIT-Scheme</span>
+      system devised and used by Gerry Sussman and others at MIT, to teach
+      advanced mechanics from a computing perspective.&nbsp; The landmark book
+      which introduced these ideas is <a title="SICM book" href="https://mitpress.mit.edu/sites/default/files/titles/content/sicm/book.html"><i>Structure
+          and Interpretation of Classical Mechanics</i></a> (aka <span class="TechEmphasis">
+        SICM</span>), and can be seen as the evolution into physics of the
+      era-defining ideas first presented in <i><a title="SICP book" href="https://mitpress.mit.edu/books/structure-and-interpretation-computer-programs">Structure
+          and Interpretation of Computer Programs</a> </i>(aka <span class="TechEmphasis">
+        SICP</span>).</p>
+    <p>Following the <span class="TechEmphasis">scmutils</span> paradigm, <span
+        class="TechEmphasis">SICMutils</span> is an integrated library of
+      procedures, embedded in the programming language <em>Clojure</em>,&nbsp;
+      intended to support teaching and research in mathematical physics and
+      electrical engineering. <span class="TechEmphasis">SICMutils</span> and <em>Clojure</em>
+      are particularly effective in work where the functional nature of <em>Clojure</em>
+      is advantageous (such as classical mechanics, among others) where many of
+      the procedures are most easily formulated as quite abstract manipulations
+      of functions.</p>
+    <p>One issue that was holding back the uptake of this system was its
+      reliance on a non-portable feature of <em>MIT-Scheme</em>, for which <em>Clojure</em>
+      was able to provide a very capable alternative. This means that <span class="TechEmphasis">SICMutils</span>
+      is now available in a modern, Java-based environment, and thus the whole
+      arsenal of Java utilities will be easily available to user. We hope that
+      this will prove beneficial and allow the harnessing of many already
+      existent tools - especially in visualization - to the educational process
+      at hand. </p>
+    <p>The <span class="TechEmphasis">scmutils</span> implementation is vast,
+      and at this stage only a small subset of it has been ported to <span class="TechEmphasis">SICMutils</span>.&nbsp;
+      The main driving motivation was to get the all code in the <em>SICM</em>
+      book up and running, so that it could be used by students.&nbsp; As more
+      functionality is added, <span class="em">SICM should become a fairly
+        complete elegant computer algebra system (CAS).&nbsp; It also has the
+        advantage that it is free software, whereas most of the competing
+        heavyweight packages are quite proprietary.</span></p>
+    <p>This particular document has followed the form of the original <span class="TechEmphasis">scmutils</span>
+      <em>Reference Manual</em> quite closely.&nbsp;&nbsp; Even though a lot of
+      changes have been made of necessity, either due to language differences or
+      to incompleteness, the chapter structure has been retained.&nbsp; The
+      original manual can be found <a title="http://groups.csail.mit.edu/mac/users/gjs/6946/refman.txt"
+        href="http://groups.csail.mit.edu/mac/users/gjs/6946/refman.txt">here</a>.&nbsp;
+      The full scmutils distribution can be found <a title="http://groups.csail.mit.edu/mac/users/gjs/6946/linux-install.htm"
+        href="http://groups.csail.mit.edu/mac/users/gjs/6946/linux-install.htm">here</a>.</p>
+    <p>Many people contributed to the development of the <span class="TechEmphasis">scmutils</span>
+      library over many years and you can find their names on the original
+      manual already mentioned. <span class="TechEmphasis">SICMutils</span> is
+      due to the work and inspiration of Colin Smith. It is available via GitHub
+      at <a title="SICMutils source" href="https://github.com/littleredcomputer/sicmutils">[littleredcomputer/sicmutils]</a>.</p>
+    <p style="margin-bottom: 0cm" align="justify"><br>
+    </p>
+    <p style="margin-bottom: 0cm" align="justify"><font color="#ee2020">Please
+        note that if you have been already using <strong> <em>scmutils</em></strong>
+        on MIT-Scheme, you will find that there are some small but significant
+        differences with this system – due to language idiosyncrasies - which
+        could lead to potential ‘gotchas’. Reading through this document should
+        make those differences clear.</font> </p>
+    <p style="margin-bottom: 0cm" align="justify"> </p>
+  </body>
+</html>
