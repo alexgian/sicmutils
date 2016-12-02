@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <link rel="stylesheet" type="text/css" href="SICMutils.css">
+    <title>SICM 3 - Functions</title>
+  </head>
+  <body>
+    <h1 class="Heading_Big">Functions</h1>
+    <p> In languages like <em>Scheme</em> and <em>Clojure</em>, and hence in <em>SICMmutils</em>,
+      functions are data just like other mathematical objects, and can be passed
+      as arguments to other functions, or returned as results from them.&nbsp;
+      This is a fundamental principle of functional programming and you should
+      have at least a basic familiarity with the concept at this stage.</p>
+    <p>The ability to manipulate functions in this way and to compose them to
+      desired effect is also the foundation of <em>SICMutils</em> generic
+      arithmetic system, which we will look look at more in the next chapter.<br>
+    </p>
+    <p>Functions in SICMutils are implemented in many different ways by the
+      underlying system, but all of them share the same fundamental properties
+      of this datatype.&nbsp; Examining some functions from SICMutils we see
+      that...</p>
+    <p class="IndentedCode"> (type
+      number?)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      ;builtin function<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ==&gt;&nbsp;
+      clojure.core$number_QMARK_</p>
+    <p class="IndentedCode">(type
+      abs)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      ; generic function<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ==&gt;&nbsp;
+      clojure.lang.MultiFn </p>
+    <p class="IndentedCode">(type (square
+      cos))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; implicit
+      composition<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ==&gt;&nbsp;
+      clojure.core$comp$fn__4495</p>
+    <p class="IndentedCode">(type (compose square sin))&nbsp; ; explicit
+      composition<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ==&gt;&nbsp;
+      clojure.lang.AFunction$1</p>
+    <p class="IndentedCode">(type
+      compose)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      ; the composing function<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ==&gt;&nbsp;
+      sicmutils.function$compose</p>
+    <p class="IndentedCode">(type
+      exact?)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      ; a Clojure protocol<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ==&gt;&nbsp;
+      sicmutils.value$eval59$fn__126$G__44__131</p>
+    <p class="IndentedCode">(type (literal-function 'f)) ; unspecified symbolic
+      function<br>
+      &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; ==&gt;&nbsp; sicmutils.function.Function</p>
+    <p>although all the above functions are of different types, it is the
+      'magic' of Clojure that allows them all to answer <span class="InlineCode">true</span>
+      to the question</p>
+    <p class="IndentedCode">(function? xxxx)</p>
+    <p>and thus allows them, where appropriate, to be composed.&nbsp; As you
+      would expect, such functions can be used with higher order procedures like
+      map and filter, etc.&nbsp; and if at this stage you don't know what those
+      are you need to go back and get hold of some functional programming
+      basics.</p>
+    <p><em>SICMutils</em> supports both implicit and explicit composition of
+      functions.&nbsp; The <span class="InlineCode">compose</span> function,
+      equivalent to the <em>∘</em> in mathematical expressions like <em>f ∘ g,</em>
+      as for instance in <span class="InlineCode">(compose square cos)</span><span
+        style="font-family: serif;"> </span>corresponds to the mathematical
+      expression <em>cos²</em>.&nbsp; However (with some exceptions) functions
+      can also be composed implicitly, according to the following rule:</p>
+    <p>Operations on functions construct new functions that are the composition
+      of the operation with its arguments, thus applying the operation to the
+      value of the functions: if <em>U</em> is a unary operation, if <em>f</em>
+      is a function, and if <em>x</em> is arguments appropriate to <em>f</em>
+      , then </p>
+    <p class="IndentedCode">((U f) x) = (U (f x))</p>
+    <p>If <em>B</em> is a binary operation, if <em>f</em> and <em>g</em> are
+      functions, and if <em>x</em> is an argument appropriate to both <em>f</em>
+      and <em>g</em>, then</p>
+    <p class="IndentedCode">((B f g) x) = (B (f x) (g x))</p>
+    <p>All of the usual unary operations are available.<br>
+      So, if &lt;<em>f</em>&gt; is an expression representing a function, and if
+      &lt;<em>x</em>&gt; is any kind of argument for &lt;<em>f</em>&gt; then,
+      for example, </p>
+    <p class="IndentedCode">((negate &lt;f&gt;) &lt;x&gt;) = (negate (f
+      &lt;x&gt;))<br>
+      ((invert &lt;f&gt;) &lt;x&gt;) = (invert (f &lt;x&gt;))<br>
+      ((sqrt &lt;f&gt;) &lt;x&gt;) &nbsp; = (sqrt (f &lt;x&gt;)) </p>
+    <p>The other operations that behave this way are: <span class="InlineCode">exp,
+        log, sin, cos, asin, acos, sinh, cosh, abs, real-part, imag-part,
+        magnitude, angle, conjugate, atan</span>.</p>
+    <p>The binary operations are similar,</p>
+    <p class="IndentedCode">((+ &lt;f&gt; &lt;g&gt;) &lt;x&gt;) = (+ (f
+      &lt;x&gt;) (g &lt;x&gt;))<br>
+      ((- &lt;f&gt; &lt;g&gt;) &lt;x&gt;) = (- (f &lt;x&gt;) (g &lt;x&gt;)) </p>
+    <p>There is also a further, special case when dealing with binary function
+      which&nbsp; we shall see in the next section.</p>
+    <p>At this stage we will mention a special kind of function provided by <em>
+        SICMutils</em>, called the 'literal function'.&nbsp; Just as - in all <em>Lisp</em>
+      related languages - we can make a symbol, say <em>x</em>, <em></em>to be
+      a literal (by prepending an apostrophe), we can similarly declare a
+      function to be literal.&nbsp; When the interpreter sees the symbol <em>'x</em>
+      it knows that this just means "x" and there is no need to attempt to get
+      its value, its value is itself.&nbsp;&nbsp; In an analogous manner a
+      literal function is defined as itself, but other than that we don't know
+      much about it (perhaps some information about its arguments), but
+      certainly nothing about what it does.&nbsp; In its most basic form a
+      literal function is defined as follows</p>
+    <p class="IndentedCode">(def lit-func (literal-function 'ff))</p>
+    <p> Henceforth ff means simply the literal (unary) function caled ff.</p>
+    <p class="IndentedCode">(lit-func 'x)&nbsp; ==&gt; (ff 'x)<br>
+      (lit-func 1)&nbsp;&nbsp; ==&gt; (ff 1)</p>
+    <p>Literal-functions become very useful in symbolic algebra and much more
+      will be said of them, but for now as a taster, consider the
+      following.&nbsp; (Incidentally literal functions have to be composed
+      explicitly.)</p>
+    <p class="IndentedCode">(def ff (literal-function 'ff))<br>
+      (def gg (literal-function 'gg))<br>
+      <br>
+      ((+ (compose ff sin) (compose gg cos)) 'x)<br>
+      &nbsp;==&gt;&nbsp;&nbsp; (+ (ff (sin x)) (gg (cos x)))<br>
+      <br>
+      ((+ (compose ff sin) (compose gg cos)) 1.0)<br>
+      &nbsp; ==&gt;&nbsp;&nbsp; (+ (ff 0.8414709848078965) (gg
+      0.5403023058681398)) </p>
+    <p>Finally in this introduction, we must mention an unusual concept provided
+      by <em>SICMutils</em>, the notion of a Structure as a function.&nbsp;
+      Structures, which we will describe soon, are merely a kind of container,
+      like a list or a vector, and will normally contain values.&nbsp; Nothing
+      unusual there.&nbsp; However, if the values of the Structure are
+      themselves functions, then the whole structure behaves like a function
+      when supplied with arguments, returning a similar structure of the
+      application of the arguments (i.e. the results).</p>
+    <p>To illustrate, there is a kind of a structure called the "up" structure
+      which is almost exactly the same as a vector in <em>SICMutils</em>.&nbsp;&nbsp;
+      As expected, <span class="InlineCode">(up 1 2 3)</span> is simply a
+      vector of three numbers.&nbsp; However <span class="InlineCode">(up sin
+        cos tan)</span> is a vector of three functions, and as such behaves like
+      a function itself.&nbsp; For example,</p>
+    <p class="IndentedCode">((up sin cos tan) 1.0)<br>
+      ==&gt; (up 0.8414709848078965 0.5403023058681398 1.5574077246549023)&nbsp;
+      <br>
+    </p>
+    <p>Structures are key to the approach of <em>SICMutils</em> for a lot of
+      reasons, and will be discussed at length later.&nbsp; Suffice it to say
+      that the authors of <em>scmutils</em> have stated that perhaps a whole
+      book should be written on the subject!&nbsp;&nbsp; Very few other computer
+      language provide a similar concept - this, in fact, was one of the main
+      reasons that the porting of <em>scmutils</em> was held back.</p>
+    <p>&nbsp;<br>
+    </p>
+    <p> </p>
+  </body>
+</html>
