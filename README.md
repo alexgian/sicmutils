@@ -1,6 +1,5 @@
 This is my fork of __*SICMutils*__, Colin Smith's excellent port of the MIT's __*scmutils*__ to Clojure.
 
-# note
 ## If you are interested in this software, you should use the master at ![littleredcomputer/sicmutils](https://github.com/littleredcomputer/sicmutils) as it is far more likely to be up to date and correct.
 This fork will contain various trial extensions and other small enhancements, by way of demonstration, with a view to geting them incorporated into the main program at some later stage.
 
